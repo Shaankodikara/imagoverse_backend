@@ -25,7 +25,7 @@ app.use(express.json());
 // app.use(express.static('./public'));
 app.use(
   cors({
-    origin: ["https://imagoverse-frontend.vercel.app/"],
+    origin: ["https://imagoverse-frontend.vercel.app"],
     credentials: true,
   })
 );
