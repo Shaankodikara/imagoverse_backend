@@ -238,28 +238,3 @@ paths:
                     type: string
                   api_data:
                     type: object
-components:
-  schemas:
-    User:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-    ImageGenerationResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        api_data:
-          type: object
-    MessageResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
