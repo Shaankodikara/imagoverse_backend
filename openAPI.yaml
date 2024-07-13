@@ -1,0 +1,269 @@
+openapi: 3.0.1
+info:
+  title: User Authentication and Image Generation API
+  description: API for user authentication and image generation/editing.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /signup:
+    post:
+      summary: User registration
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - name
+                - email
+                - password
+      responses:
+        200:
+          description: Successful registration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+
+  /signin:
+    post:
+      summary: User login
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        200:
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+
+  /logout:
+    get:
+      summary: User logout
+      tags:
+        - Authentication
+      responses:
+        200:
+          description: Successful logout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+
+  /forgot-password:
+    post:
+      summary: Forgot password
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+                - email
+      responses:
+        200:
+          description: Forgot password process initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+
+  /reset-password/{token}:
+    post:
+      summary: Reset password
+      tags:
+        - Authentication
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+              required:
+                - password
+      responses:
+        200:
+          description: Password reset successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+
+  /verify:
+    get:
+      summary: Verify user authorization
+      tags:
+        - Authentication
+      responses:
+        200:
+          description: User is authorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+
+  /generate:
+    post:
+      summary: Generate image based on prompt
+      tags:
+        - Image Generation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+              required:
+                - prompt
+      responses:
+        200:
+          description: Image generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  api_data:
+                    type: object
+
+  /edit:
+    post:
+      summary: Edit image using another image
+      tags:
+        - Image Editing
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+              required:
+                - prompt
+                - file
+      responses:
+        200:
+          description: Image edited successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  api_data:
+                    type: object
+
+  /edit-detail:
+    post:
+      summary: Detailed edit of image using another image
+      tags:
+        - Image Editing
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+              required:
+                - prompt
+                - file
+      responses:
+        200:
+          description: Detailed image edit successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  api_data:
+                    type: object
