@@ -1,16 +1,11 @@
-openapi: 3.0.1
+openapi: 3.0.0
 info:
   title: User Authentication and Image Generation API
-  description: API for user authentication and image generation/editing.
   version: 1.0.0
-servers:
-  - url: http://localhost:3000/api
 paths:
   /signup:
     post:
-      summary: User registration
-      tags:
-        - Authentication
+      summary: Register a new user
       requestBody:
         required: true
         content:
@@ -29,8 +24,8 @@ paths:
                 - email
                 - password
       responses:
-        200:
-          description: Successful registration
+        '200':
+          description: User registered successfully
           content:
             application/json:
               schema:
@@ -40,12 +35,9 @@ paths:
                     type: string
                   message:
                     type: string
-
   /signin:
     post:
-      summary: User login
-      tags:
-        - Authentication
+      summary: Login a user
       requestBody:
         required: true
         content:
@@ -61,8 +53,8 @@ paths:
                 - email
                 - password
       responses:
-        200:
-          description: Successful login
+        '200':
+          description: User logged in successfully
           content:
             application/json:
               schema:
@@ -72,15 +64,12 @@ paths:
                     type: string
                   message:
                     type: string
-
   /logout:
     get:
-      summary: User logout
-      tags:
-        - Authentication
+      summary: Logout a user
       responses:
-        200:
-          description: Successful logout
+        '200':
+          description: User logged out successfully
           content:
             application/json:
               schema:
@@ -90,12 +79,9 @@ paths:
                     type: string
                   message:
                     type: string
-
   /forgot-password:
     post:
-      summary: Forgot password
-      tags:
-        - Authentication
+      summary: Handle forgot password
       requestBody:
         required: true
         content:
@@ -108,8 +94,8 @@ paths:
               required:
                 - email
       responses:
-        200:
-          description: Forgot password process initiated
+        '200':
+          description: Password reset email sent
           content:
             application/json:
               schema:
@@ -119,12 +105,9 @@ paths:
                     type: string
                   message:
                     type: string
-
   /reset-password/{token}:
     post:
-      summary: Reset password
-      tags:
-        - Authentication
+      summary: Reset user password
       parameters:
         - in: path
           name: token
@@ -143,8 +126,8 @@ paths:
               required:
                 - password
       responses:
-        200:
-          description: Password reset successful
+        '200':
+          description: Password reset successfully
           content:
             application/json:
               schema:
@@ -154,14 +137,11 @@ paths:
                     type: string
                   message:
                     type: string
-
   /verify:
     get:
-      summary: Verify user authorization
-      tags:
-        - Authentication
+      summary: Verify if the user is logged in
       responses:
-        200:
+        '200':
           description: User is authorized
           content:
             application/json:
@@ -172,12 +152,9 @@ paths:
                     type: string
                   message:
                     type: string
-
   /generate:
     post:
-      summary: Generate image based on prompt
-      tags:
-        - Image Generation
+      summary: Generate an image based on a text prompt
       requestBody:
         required: true
         content:
@@ -190,7 +167,7 @@ paths:
               required:
                 - prompt
       responses:
-        200:
+        '200':
           description: Image generated successfully
           content:
             application/json:
@@ -201,12 +178,9 @@ paths:
                     type: string
                   api_data:
                     type: object
-
   /edit:
     post:
-      summary: Edit image using another image
-      tags:
-        - Image Editing
+      summary: Edit an image using a text prompt
       requestBody:
         required: true
         content:
@@ -223,7 +197,7 @@ paths:
                 - prompt
                 - file
       responses:
-        200:
+        '200':
           description: Image edited successfully
           content:
             application/json:
@@ -234,12 +208,9 @@ paths:
                     type: string
                   api_data:
                     type: object
-
   /edit-detail:
     post:
-      summary: Detailed edit of image using another image
-      tags:
-        - Image Editing
+      summary: Detail edit an image using a text prompt
       requestBody:
         required: true
         content:
@@ -256,8 +227,8 @@ paths:
                 - prompt
                 - file
       responses:
-        200:
-          description: Detailed image edit successful
+        '200':
+          description: Image detail edited successfully
           content:
             application/json:
               schema:
@@ -267,3 +238,28 @@ paths:
                     type: string
                   api_data:
                     type: object
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    ImageGenerationResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        api_data:
+          type: object
+    MessageResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
