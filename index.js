@@ -10,16 +10,16 @@ import { authRouter } from "./routes/auth.js";
 import { imageRouter } from "./routes/image.js";
 
 const app = express();
-
-// middlewares
-app.use(express.json());
-// app.use(express.static('./public'));
 app.use(
   cors({
     origin: [process.env.ORIGIN],
     credentials: true,
   })
 );
+// middlewares
+app.use(express.json());
+// app.use(express.static('./public'));
+
 app.use(cookieParser());
 app.use((req, res, next) => {
   console.log(req.method, req.path);
