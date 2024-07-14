@@ -12,7 +12,7 @@ import { imageRouter } from "./routes/image.js";
 const app = express();
 app.use(
   cors({
-    origin: [process.env.ORIGIN],
+    origin: "*",
     credentials: true,
   })
 );
