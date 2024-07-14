@@ -10,6 +10,8 @@ import { authRouter } from "./routes/auth.js";
 import { imageRouter } from "./routes/image.js";
 
 const app = express();
+app.use(cors());
+app.options('*', cors())
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -23,11 +25,6 @@ mongoose
 // middlewares
 app.use(express.json());
 // app.use(express.static('./public'));
-app.use(
-  cors({
-    origin:"*"
-  })
-);
 app.use(cookieParser());
 app.use((req, res, next) => {
   console.log(req.method, req.path);
