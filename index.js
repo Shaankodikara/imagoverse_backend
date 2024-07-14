@@ -24,7 +24,9 @@ mongoose
 app.use(express.json());
 // app.use(express.static('./public'));
 app.use(
-  cors()
+  cors({
+    origin:"*"
+  })
 );
 app.use(cookieParser());
 app.use((req, res, next) => {
